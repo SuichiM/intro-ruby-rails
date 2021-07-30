@@ -10,20 +10,19 @@ after that we have a fresh installation of a ruby running in a service called `w
 
 after that we started to follow this [tutorial](https://guides.rubyonrails.org/v5.2/getting_started.html)
 
-
 1. installing rails `gem install rails` check the install with `rails --version`
 
 2. creating the app `rails new blog --database=postgresql` This will create a Rails application called `Blog` in a `blog` directory and install the gem dependencies that are already mentioned in `Gemfile` using bundle install.
 
->You can see all of the command line options that the Rails application builder accepts by running `rails new -h`
+> You can see all of the command line options that the Rails application builder accepts by running `rails new -h`
 
-3. run this command to get ownership of the folder 
+3. run this command to get ownership of the folder
 
-``` 
+```
 sudo chown -R $USER:$USER .
 ```
 
-4. at this point we need to configure our postgres database for the project. go to `config/database.yml` and 
+4. at this point we need to configure our postgres database for the project. go to `config/database.yml` and
 
 ```yml
 default: &default
@@ -37,7 +36,6 @@ default: &default
 development:
   <<: *default
   database: myapp_development
-
 
 test:
   <<: *default
@@ -58,3 +56,43 @@ and....
 ![](img/hello_world.png)
 
 boilá...
+
+## controllers
+
+To create a new controller, you will need to run the "controller" generator and tell it you want a controller called "Welcome" with an action called "index", just like this:
+
+```
+bin/rails generate controller Welcome index
+```
+
+## routes
+
+Open the file `config/routes.rb` in your editor. that file tells Rails how to connect incoming requests to controllers and actions.
+
+```rb
+Rails.application.routes.draw do
+  get 'welcome/index'
+
+  root 'welcome#index'
+end
+```
+
+root `'welcome#index'` tells Rails to map requests to the root of the application to the welcome controller's `index` action and `get` 'welcome/index' tells Rails to map requests to `http://localhost:3000/welcome/index` to the welcome controller's index action.
+
+## models / resources
+
+A resource is the term used for a collection of similar objects, such as articles, people or animals. You can create, read, update and destroy items for a resource and these operations are referred to as CRUD operations.
+
+Rails provides a `resources method` which can be used to declare a standard REST resource.
+
+You need to add the article resource to the config/routes.rb so the file will look as follows:
+
+```rb
+Rails.application.routes.draw do
+  get 'welcome/index'
+
+  resources :articles
+
+  root 'welcome#index'
+end
+```
