@@ -134,3 +134,41 @@ we can response
 > xml -> with files `.builder`
 >
 > js -> with files `.coffe`
+
+## form builder
+
+To create a form within this template, you will use a form builder. The primary form builder for Rails is provided by a helper method called `form_with`.
+
+```erb
+<%= form_with scope: :article, url: articles_path, local: true do |form| %>
+  <p>
+    <%= form.label :title %><br>
+    <%= form.text_field :title %>
+  </p>
+
+  <p>
+    <%= form.label :text %><br>
+    <%= form.text_area :text %>
+  </p>
+
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>
+```
+
+the form will send by default, a `post` action, and will post to the `url` that in this case is the route defined for the articles resources.
+
+now in the controller we must handle the submitted data.
+
+```
+def create
+  render plain: params[:article].inspect
+end
+```
+
+## creating an article the model
+
+```
+bin/rails generate model Article title:string text:text
+```
