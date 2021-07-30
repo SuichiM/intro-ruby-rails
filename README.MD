@@ -96,3 +96,41 @@ Rails.application.routes.draw do
   root 'welcome#index'
 end
 ```
+
+you can check that by running
+
+```
+bin/rails routes
+```
+
+## giving behavior to the resource's routes
+
+after adding resources to our route file, rails exposes a serie of routes for the CRUD of it.
+
+but for handle them, we must create a controller to map between the routes created and actions
+
+so we will create a new controller to handle the `articles` resource
+
+```
+bin/rails generate controller Articles
+```
+
+now we must define the `new` method that will handle te new request
+
+```rb
+class ArticlesController < ApplicationController
+  def new
+  end
+end
+```
+
+calling this method we must response an a response always must have a template that will says how parse the response.
+all the templates are located under the `app/views` folder
+
+we can response
+
+> html -> with files `.html.erb`
+>
+> xml -> with files `.builder`
+>
+> js -> with files `.coffe`
