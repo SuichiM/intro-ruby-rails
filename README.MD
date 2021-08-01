@@ -178,5 +178,27 @@ bin/rails generate model Article title:string text:text
 once created a model, we must run the migration to impact changes on the database
 
 ```
-
+bin/rails db:migrate
 ```
+
+## securing the creation of the model
+
+for security reason, to create a new model isntance, we must define the allowed fields.
+
+so We have to whitelist our controller parameters to prevent wrongful mass assignment. In this case, we want to both allow and require the title and text parameters for valid use of create. The syntax for this introduces require and permit. The change will involve one line in the create action:
+
+```rb
+def create
+  @article = Article.new(article_params)
+
+  @article.save
+  redirect_to @article
+end
+
+private
+  def article_params
+    params.require(:article).permit(:title, :text)
+  end
+```
+
+> A frequent practice is to place the standard CRUD actions in each controller in the following order: index, show, new, edit, create, update and destroy. You may use any order you choose, but keep in mind that these are public methods; as mentioned earlier in this guide, they must be placed before declaring private visibility in the controller.
