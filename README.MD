@@ -169,6 +169,14 @@ end
 
 ## creating an article the model
 
+for create a model we must run the a command as follow
+
 ```
 bin/rails generate model Article title:string text:text
+```
+
+once created a model, we must run the migration to impact changes on the database
+
+```
+
 ```
