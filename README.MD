@@ -213,3 +213,33 @@ There isn't much to this file - but note that the `Article` class inherits from 
 - data validation,
 - as well as sophisticated search support and
 - the ability to relate multiple models to one another.
+
+Rails includes methods to help you validate the data that you send to models.
+
+Open the `app/models/article.rb` file and edit it:
+
+```rb
+class Article < ApplicationRecord
+  validates :title, presence: true,
+                    length: { minimum: 5 }
+end
+```
+
+These changes will ensure that all articles have a `title` that is at least five characters long.
+Rails can validate a variety of conditions in a model, including the presence or uniqueness of columns, their format, and the existence of associated objects.
+Validations are covered in detail in [Active Record Validations](https://guides.rubyonrails.org/v5.2/active_record_validations.html).
+
+## updating a resource
+
+first of all we must search the resource to update, so we define a edit method, that will search the resource and make it available for the view to render.
+
+```rb
+def edit
+  @article = Article.find(params[:id])
+end
+```
+
+in the view, as we said before we have the `form_with` helper. The arguments to `form_with`
+
+- could be model objects, say, model: @article which would cause the helper to fill in the form with the fields of the object.
+- Passing in a symbol scope (scope: :article) just creates the fields but without anything filled into them. More details can be found in form_with [documentation](http://api.rubyonrails.org/v5.2.6/classes/ActionView/Helpers/FormHelper.html#method-i-form_with).
