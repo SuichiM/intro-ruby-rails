@@ -202,3 +202,14 @@ private
 ```
 
 > A frequent practice is to place the standard CRUD actions in each controller in the following order: index, show, new, edit, create, update and destroy. You may use any order you choose, but keep in mind that these are public methods; as mentioned earlier in this guide, they must be placed before declaring private visibility in the controller.
+
+## model validation, models in deep
+
+The model file, `app/models/article.rb` is about as simple as it can get:
+
+There isn't much to this file - but note that the `Article` class inherits from `ApplicationRecord`. `ApplicationRecord` inherits from `ActiveRecord::Base` which supplies a great deal of functionality to your Rails models for free, including:
+
+- basic database CRUD (Create, Read, Update, Destroy) operations,
+- data validation,
+- as well as sophisticated search support and
+- the ability to relate multiple models to one another.
